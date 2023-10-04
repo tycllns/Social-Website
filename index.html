@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="app.js"></script>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Social Media App</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchData();
+        });
+        
+    </script>
+
+    <!-- Add this JavaScript code before the closing </body> tag -->
+    <link rel="stylesheet" href="app.css"> <!-- Link to your CSS stylesheet -->
+</head>
+<body>
+    <div id="topnav" class="topnav">
+        <!-- Place your navigation bar content here -->
+    </div>
+    <br><br>
+    <div class="post_box">
+        <div class="profile_details" name="user_info">
+            <img class="profile_pic_big" name="profile_picture">
+            <br>
+            <br>
+            <a href="upload.html">Change Profile Picture</a>
+            <h1 name="username">Your Username</h1>
+            
+            <form>
+                <!-- Remove the title input since you are not using it in the PHP script -->
+                <label for="content">Say Something:</label>
+                <br><br>
+                <textarea name="content" id="content" required></textarea><br>
+                <button type="button" id="submitBtn" onclick="submitPost()">Submit</button>
+            </form>
+        </div>
+        <br>
+        <br>
+
+    </div>
+    <div id="posts" class="post_box">
+        <!-- Posts will be displayed here -->
+    </div>
+    <footer>
+        <p>&copy; 2023 Your Social Media App</p>
+    </footer>
+</body>
+</html>

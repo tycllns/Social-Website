@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your Social Media App</title>
+    <link rel="stylesheet" href="app.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="app.js"></script>
+    <style>
+        /* Add your CSS styles here */
+        .user-link {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="topnav" class="topnav"></div>
+    <br>
+    <br>
+    <div id="welcome">
+        <h1>Search Results</h1>
+    </div>
+ 
+    <!-- Display search results here -->
+    <div id="searchResults" class="search-results"></div>
+
+    <script>
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Retrieve and display search results from localStorage
+            var searchResults = JSON.parse(localStorage.getItem('searchResults'));
+            if (searchResults && searchResults.length > 0) {
+                var resultsContainer = document.getElementById("searchResults");
+
+                searchResults.forEach(function(user) {
+                    // Create a clickable link with user's name and profile picture
+                    var userLink = document.createElement("a");
+                    userLink.href = "other_profile.html?user_id=" + user.user_id; // Replace with correct URL structure
+                    userLink.className = "user-link";
+
+                    // Create an image element for the profile picture
+                    var profileImage = document.createElement("img");
+                    profileImage.src = user.profile_picture;
+                    profileImage.alt = user.username;
+                    profileImage.className = "profile_pic_small";
+
+                    // Create a span for the username
+                    var usernameSpan = document.createElement("span");
+                    usernameSpan.textContent = user.username;
+
+                    // Append the profile picture and username to the userLink
+                    userLink.appendChild(profileImage);
+                    userLink.appendChild(usernameSpan);
+
+                    // Append the userLink to the resultsContainer
+                    resultsContainer.appendChild(userLink);
+                });
+            }
+        });
+    </script>
+</body>
+</html>

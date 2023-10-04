@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Registration</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="app.css">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+        // Check for the message query parameter
+        var urlParams = new URLSearchParams(window.location.search);
+            var message = urlParams.get('message');
+            
+            if (message) {
+                // Display an alert with the message
+                alert(decodeURIComponent(message));
+                var postDiv = document.createElement("p");
+                postDiv.className = "error_message";
+                postDiv.innerText = "UserName already exists, please choose another Username";
+                document.body.appendChild(postDiv);
+            }
+        });
+        // Get a reference to the button element by its ID
+        const myButton = document.getElementById("register");
+
+        // Function to disable the button when it's clicked
+        function disableButton() {
+            myButton.disabled = true;
+        }
+
+        // Attach the click event listener to the button
+        myButton.addEventListener("click", disableButton);
+    </script>
+
+</head>
+<body>
+    <div id="topnav" name="topnav" class="topnav">
+        <!-- Your navigation content goes here -->
+    </div>
+    <br>
+    <h2>User Registration</h2>
+    <br>
+    <form class="login-container" action="PHP/create_user.php" method="post" enctype="multipart/form-data">
+        <h1>Upload a Profile Picture</h1>
+        <br>
+        <label for="image">Select an image to upload:</label>
+        <br>
+        <input type="file" name="profile_picture" id="image" accept="image/*" required>
+        <br>
+        <br>
+        <label for="new_username">Username:</label>
+        <input type="text" id="new_username" name="new_username" required>
+        <br><br>
+        
+        <label for="new_password">Password:</label>
+        <input type="password" id="new_password" name="new_password" required>
+        <br><br>
+        
+        <label for="new_email">Email:</label>
+        <input type="email" id="new_email" name="new_email" required>
+        <br><br>
+
+        <label for="confirm_password">Confirm Password:</label>
+        
+        <input type="password" id="confirm_password" name="confirm_password" required>
+        <br><br>
+
+        <input id="register" type="submit" value="Register">
+    </form>
+</body>
+</html>
