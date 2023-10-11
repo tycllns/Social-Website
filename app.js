@@ -319,6 +319,48 @@ function checkAndDisplayError() {
     }
 }
 
+function getUserIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("user_id");
+    return userId;
+}
+
+function displayUserProfile(profileData) {
+    // Update profile picture
+    var profilePicture = document.getElementById("profilePicture");
+    alert(profileData.profile_picture);
+    if (profilePicture) {
+        profilePicture.src = profileData.posts.profile_picture;
+    }
+
+    // Update username
+    var usernameElement = document.getElementById("username");
+    if (usernameElement) {
+        usernameElement.textContent = profileData.posts.username;
+    }
+
+    // Add any additional data you want to display on the profile page
+}
+
+// Function to check session status and refresh the page if it has expired
+function checkSessionStatus() {
+    fetch('PHP/check_session.php') // Create a PHP file (check_session.php) to check the session status
+        .then(response => response.json())
+        .then(data => {
+            if (data.session_expired) {
+                // Session has expired, refresh the page
+                checkLoginStatus();
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error checking session status:', error);
+        });
+}
+
+// Check session status every minute (adjust the interval as needed)
+setInterval(checkSessionStatus, 60000); // 60000 milliseconds = 1 minute
+
 // Call the error handler function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     createNav();

@@ -8,21 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
 
-        // Check for the message query parameter
-        var urlParams = new URLSearchParams(window.location.search);
-            var message = urlParams.get('message');
-            
-            if (message) {
-                // Display an alert with the message
-                alert(decodeURIComponent(message));
-                var postDiv = document.createElement("p");
-                postDiv.className = "error_message";
-                postDiv.innerText = "UserName already exists, please choose another Username";
-                document.body.appendChild(postDiv);
-            }
-        });
         // Get a reference to the button element by its ID
         const myButton = document.getElementById("register");
 

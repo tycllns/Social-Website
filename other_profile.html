@@ -11,34 +11,8 @@
     <script>
 
         document.addEventListener('DOMContentLoaded', function () {
-            fetchPosts();
+            fetchUserPosts(getUserIdFromUrl());
         });
-
-        function getUserIdFromUrl() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const userId = urlParams.get("user_id");
-            return userId;
-        }
-
-        function displayUserProfile(profileData) {
-            // Update profile picture
-            var profilePicture = document.getElementById("profilePicture");
-            alert(profileData.profile_picture);
-            if (profilePicture) {
-                profilePicture.src = profileData.posts.profile_picture;
-            }
-
-            // Update username
-            var usernameElement = document.getElementById("username");
-            if (usernameElement) {
-                usernameElement.textContent = profileData.posts.username;
-            }
-
-            // Add any additional data you want to display on the profile page
-        }
-
-        
-
     </script>
 
 </head>
