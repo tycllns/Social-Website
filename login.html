@@ -1,0 +1,89 @@
+<!-- login.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="app.css"> <!-- Link to your CSS stylesheet -->
+    <style>
+
+    </style>
+    <script>
+        // Function to get URL parameters
+        function getUrlParameter(name) {
+            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+            var results = regex.exec(location.search);
+            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+        }
+        
+        // Function to handle displaying error message
+        function displayErrorMessage() {
+            var errorParam = getUrlParameter('error');
+            if (errorParam === '1') {
+                // Display an error message to the user
+                console.log("Cannot Login")
+                document.getElementById('error-message').innerText = 'Invalid credentials. Please try again.';
+            }
+            if (errorParam === '2') {
+                // Display an error message to the user
+                console.log("Cannot Login")
+                document.getElementById('error-message').innerText = 'UserName does not exist';
+            }
+            if (errorParam === '3') {
+                // Display an error message to the user
+                document.getElementById('error-message').innerText = 'Please Login';
+            }
+        }
+
+    // Add a DOMContentLoaded event listener to run the code after the DOM is fully loaded
+    document.addEventListener('DOMContentLoaded', displayErrorMessage);
+</script>
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Check for the message query parameter
+            var urlParams = new URLSearchParams(window.location.search);
+            var message = urlParams.get('message');
+            var error = urlParams.get('error');
+            
+            if (message) {
+                // Display an alert with the message
+                var postDiv = document.createElement("p");
+                postDiv.className = "success_message";
+                postDiv.innerText = "User created successfully";
+                document.body.appendChild(postDiv);
+            }
+            displayErrorMessage();
+        });
+        </script>
+        
+</head>
+<body>
+
+    <div id="topnav" class="topnav">
+
+    </div>
+    <br><br><br>
+    <div class="login-container">
+        <h2>Login</h2>
+
+        <form action="PHP/login.php" method="post">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required><br>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required><br>
+           
+            <button type="submit">Login</button>
+        </form>
+        <p id="error-message"></p>
+        <a href="create_user.html">Create User</a>
+    </div>
+</body>
+</html>
