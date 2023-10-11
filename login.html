@@ -12,57 +12,7 @@
     <style>
 
     </style>
-    <script>
-        // Function to get URL parameters
-        function getUrlParameter(name) {
-            name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
-            var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
-            var results = regex.exec(location.search);
-            return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-        }
-        
-        // Function to handle displaying error message
-        function displayErrorMessage() {
-            var errorParam = getUrlParameter('error');
-            if (errorParam === '1') {
-                // Display an error message to the user
-                console.log("Cannot Login")
-                document.getElementById('error-message').innerText = 'Invalid credentials. Please try again.';
-            }
-            if (errorParam === '2') {
-                // Display an error message to the user
-                console.log("Cannot Login")
-                document.getElementById('error-message').innerText = 'UserName does not exist';
-            }
-            if (errorParam === '3') {
-                // Display an error message to the user
-                document.getElementById('error-message').innerText = 'Please Login';
-            }
-        }
 
-    // Add a DOMContentLoaded event listener to run the code after the DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', displayErrorMessage);
-</script>
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-
-            // Check for the message query parameter
-            var urlParams = new URLSearchParams(window.location.search);
-            var message = urlParams.get('message');
-            var error = urlParams.get('error');
-            
-            if (message) {
-                // Display an alert with the message
-                var postDiv = document.createElement("p");
-                postDiv.className = "success_message";
-                postDiv.innerText = "User created successfully";
-                document.body.appendChild(postDiv);
-            }
-            displayErrorMessage();
-        });
-        </script>
-        
 </head>
 <body>
 
@@ -82,7 +32,6 @@
            
             <button type="submit">Login</button>
         </form>
-        <p id="error-message"></p>
         <a href="create_user.html">Create User</a>
     </div>
 </body>

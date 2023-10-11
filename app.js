@@ -19,9 +19,14 @@
         
     }
 
+    function allElements(hideorshow){
+        const main = document.getElementById("mainContent");
+        main.style.display = hideorshow;
+    }
 // JavaScript function to check if the user is logged in
 function checkLoginStatus() {
     // Make an HTTP request to check login status
+    allElements('none')
     fetch('PHP/check_login.php')
         .then(response => {
             if (!response.ok) {
@@ -33,13 +38,14 @@ function checkLoginStatus() {
             if (data.logged_in) {
                 // User is logged in, perform appropriate actions
                 console.log("User Logged in");
+                allElements('block')
                 return true;
             } else {
                 console.log("User not logged in");
                 
                 // Navigate to another page, but only if not already on the login page
                 if (window.location.href.indexOf("login.html") === -1) {
-                    window.location.href = "login.html?errorParam=3";
+                    window.location.href = "login.html?error=User Not Logged In";
                     
                 }
                 return false;
@@ -120,7 +126,7 @@ function createNav() {
     postDiv.href = "login.html";
 
 
-    var postDiv9 = document.createElement("div");
+    /*var postDiv9 = document.createElement("div");
 postDiv9.className = "search-container";
 
 var searchInput = document.createElement("input");
@@ -137,7 +143,7 @@ postDiv9.appendChild(searchInput);
 postDiv9.appendChild(searchButton);
 
 
-document.getElementById("topnav").appendChild(postDiv9);
+document.getElementById("topnav").appendChild(postDiv9);*/
 
     var postDiv2 = document.createElement("a");
     postDiv2.textContent = "Your Page";
@@ -188,8 +194,7 @@ document.getElementById("topnav").appendChild(postDiv9);
     document.getElementById("topnav").appendChild(postDiv4);
     document.getElementById("topnav").appendChild(postDiv5);
     document.getElementById("topnav").appendChild(postDiv);
-    document.getElementById("topnav").appendChild(postDiv9);
-    search();
+    //document.getElementById("topnav").appendChild(postDiv9);
     
 }
 
@@ -307,26 +312,80 @@ function checkAndDisplayError() {
     // Get the URL parameters
     var urlParams = new URLSearchParams(window.location.search);
     var message = urlParams.get('message');
+    var error = urlParams.get('error');
 
     if (message) {
         // Create a paragraph element for the error message
         var errorDiv = document.createElement("div");
-        errorDiv.className = "error-message";
+        errorDiv.className = "success_message";
         errorDiv.innerText = decodeURIComponent(message);
+
+        // Append the error message to the document body
+        document.body.appendChild(errorDiv);
+    }
+    if (error){
+        // Create a paragraph element for the error message
+        var errorDiv = document.createElement("div");
+        errorDiv.className = "error_message";
+        errorDiv.innerText = decodeURIComponent(error);
 
         // Append the error message to the document body
         document.body.appendChild(errorDiv);
     }
 }
 
+function getUserIdFromUrl() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const userId = urlParams.get("user_id");
+    return userId;
+}
+
+function displayUserProfile(profileData) {
+    // Update profile picture
+    var profilePicture = document.getElementById("profilePicture");
+    
+    alert(profileData.profile_picture);
+    if (profilePicture) {
+        profilePicture.src = profileData.posts.profile_picture;
+    }
+
+    // Update username
+    var usernameElement = document.getElementById("username");
+    if (usernameElement) {
+        usernameElement.textContent = profileData.posts.username;
+    }
+
+    // Add any additional data you want to display on the profile page
+}
+
+// Function to check session status and refresh the page if it has expired
+function checkSessionStatus() {
+    fetch('check_session.php') // Create a PHP file (check_session.php) to check the session status
+        .then(response => response.json())
+        .then(data => {
+            if (data.session_expired) {
+                // Session has expired, refresh the page
+                checkLoginStatus();
+                location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error checking session status:', error);
+        });
+}
+
+// Check session status every minute (adjust the interval as needed)
+setInterval(checkSessionStatus, 60000); // 60000 milliseconds = 1 minute
+
 // Call the error handler function when the DOM is fully loaded
 document.addEventListener('DOMContentLoaded', function() {
     createNav();
-    checkLoginStatus();
+    if (window.location.href.indexOf('create_user.html') === -1 && window.location.href.indexOf('login.html') === -1 ) {
+        checkLoginStatus();
+    }
     get_profile_picture();
     get_username();
     checkAndDisplayError();
-
 });
 
 

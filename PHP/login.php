@@ -31,11 +31,11 @@ if ($result->num_rows == 1) {
         header("Location: ../index.html"); // Redirect to the dashboard or another page
     } else {
         // Password is incorrect
-        header("Location: ../login.html?error=1"); // Redirect back to the login page with an error parameter
+        header("Location: ../login.html?error=Password Is Incorrect"); // Redirect back to the login page with an error parameter
     }
 } else {
     // User not found
-    header("Location: ../login.html?error=2"); // Redirect back to the login page with an error parameter
+    header("Location: ../login.html?error=Username Is Incorrect"); // Redirect back to the login page with an error parameter
 }
 
 // Close the database connection
